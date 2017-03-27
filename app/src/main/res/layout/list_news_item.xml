@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="60dp">
+
+    <!-- 组件默认自动适配,Image给了适配方案, -->
+
+    <com.loopj.android.image.SmartImageView
+        android:id="@+id/siv_image"
+        android:scaleType="fitXY"
+        android:layout_width="80dp"
+        android:layout_height="60dp">
+    </com.loopj.android.image.SmartImageView>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/basebtnStyle"
+            android:layout_alignParentRight="true"
+            android:text="新闻标题新闻标题新闻标题新闻标题"/>
+
+        <TextView
+            android:id="@+id/txt_from"
+            style="@style/basebtnStyle"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/siv_image"
+            android:text="来源："/>
+    </LinearLayout>
+
+</LinearLayout>

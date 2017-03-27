@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <!-- 因为同一时间是能有一个按钮被选中,因此建议使用Radio -->
+
+        <RadioButton
+
+            style="@style/btnStyle"
+            android:drawableTop="@drawable/selector_good"
+            android:onClick="btnAll"
+            android:text="全选" />
+
+        <RadioButton
+            style="@style/btnStyle"
+            android:drawableTop="@drawable/selector_error"
+            android:onClick="btnReverse"
+            android:text="反选" />
+
+        <RadioButton
+            style="@style/btnStyle"
+            android:drawableTop="@drawable/selector_bad"
+            android:onClick="btnCancel"
+            android:text="取消" />
+
+        <RadioButton
+            style="@style/btnStyle"
+            android:drawableTop="@drawable/map"
+            android:text="测试" />
+    </RadioGroup>
+
+
+</LinearLayout>
