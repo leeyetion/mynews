@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
-import news.crc.com.mynews.home.HomeActivity;
+import news.crc.com.mynews.home.activity.HomeActivity;
 import news.crc.com.mynews.util.DensityUtils;
 import news.crc.com.mynews.util.SharedPreUtils;
 
@@ -29,7 +29,6 @@ public class GuideActivity extends Activity {
     private ViewPager vp_guide=null;   //存放引导页4张图片
     private LinearLayout ll_dot=null;   //存放四个点水平布局
     private ImageView iv_dot_red=null;  //红点
-
 
     private List<View> iList=null;//
 

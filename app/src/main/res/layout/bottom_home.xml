@@ -13,26 +13,33 @@
         <RadioButton
 
             style="@style/btnStyle"
-            android:drawableTop="@drawable/selector_good"
+            android:drawableTop="@drawable/selector_all"
             android:onClick="btnAll"
-            android:text="全选" />
+            android:text="首页" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/selector_error"
-            android:onClick="btnReverse"
-            android:text="反选" />
+            android:drawableTop="@drawable/select_calendar"
+            android:onClick="btnCalendar"
+            android:text="时间链" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/selector_bad"
-            android:onClick="btnCancel"
-            android:text="取消" />
+            android:drawableTop="@drawable/selector_electronics"
+            android:onClick="btnElectronics"
+            android:text="电视+" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/map"
-            android:text="测试" />
+            android:drawableTop="@drawable/select_jewelry"
+            android:onClick="btnJewelry"
+            android:text="发现" />
+
+        <RadioButton
+            style="@style/btnStyle"
+            android:drawableTop="@drawable/select_account"
+            android:onClick="btnAccount"
+            android:text="我" />
     </RadioGroup>
 
 

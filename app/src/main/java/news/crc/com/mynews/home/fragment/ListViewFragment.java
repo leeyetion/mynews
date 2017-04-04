@@ -15,11 +15,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
+
 import com.loopj.android.image.SmartImageView;
 
 import java.util.ArrayList;
@@ -41,13 +37,9 @@ import news.crc.com.mynews.home.model.WebNews;
 
 public class ListViewFragment extends Fragment {
 
-
-
-
     ListView lv_news=null;
     List<WebNews> nlist=null;
     List<DataBean> datlist=null;
-    RequestModel requestModel;
 
     MyAdapter adapter=new MyAdapter();
 
