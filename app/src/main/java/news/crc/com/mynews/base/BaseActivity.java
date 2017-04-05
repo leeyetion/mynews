@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import news.crc.com.mynews.R;
+import news.crc.com.mynews.home.HomeActivity;
+import news.crc.com.mynews.home.activity.CalendarActivity;
 
 public abstract class  BaseActivity extends FragmentActivity {
 
@@ -73,9 +75,13 @@ public abstract class  BaseActivity extends FragmentActivity {
     public abstract int setTittle();
 
     public void btnAll(View view){
+        Intent intent= new Intent(this, HomeActivity.class);
+        startActivity(intent);
         Toast.makeText(this,"btnAll被单击",Toast.LENGTH_SHORT).show();
     }
     public void btnCalendar(View view){
+        Intent intent= new Intent(this, CalendarActivity.class);
+        startActivity(intent);
         Toast.makeText(this,"btnCalendar被单击",Toast.LENGTH_SHORT).show();
     }
     public void btnElectronics(View view){

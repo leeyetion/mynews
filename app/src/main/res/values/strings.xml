@@ -4,5 +4,6 @@
     <string name="title_activity_guide">GuideActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="headline_title">今日头条</string>
+    <string name="headline_title">今日头条</string>calendar
+    <string name="calendar_title">时间链</string>
 </resources>

@@ -27,6 +27,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity android:name=".home.activity.HomeActivity" />
+        <activity android:name=".home.activity.CalendarActivity"></activity>
     </application>
 
 </manifest>
