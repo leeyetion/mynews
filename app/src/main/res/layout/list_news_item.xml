@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="horizontal"
+    android:padding="5dp"
     android:layout_height="60dp">
 
     <!-- 组件默认自动适配,Image给了适配方案, -->

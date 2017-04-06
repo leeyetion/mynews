@@ -8,17 +8,13 @@
     android:background="#000"
     tools:context="news.crc.com.mynews.home.HomeActivity">
 
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabs"
+    <fragment
+        android:id="@+id/fm_home"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
-        android:background="@color/background_tab_pressed" />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_fragement"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+
+    </fragment>
 
 </LinearLayout>
