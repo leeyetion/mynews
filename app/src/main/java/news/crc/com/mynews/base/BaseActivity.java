@@ -1,5 +1,8 @@
 package news.crc.com.mynews.base;
 
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,12 +20,14 @@ import android.widget.Toast;
 import news.crc.com.mynews.R;
 import news.crc.com.mynews.home.HomeActivity;
 import news.crc.com.mynews.home.activity.CalendarActivity;
+import news.crc.com.mynews.home.fragment.FragmentHeadline;
 
 public abstract class  BaseActivity extends FragmentActivity {
 
     LayoutInflater mLayoutInfilater=null;
     LinearLayout ll_nain=null;
     TextView tv_title=null;
+
 
     private boolean isAppExit = false;
     private Handler handler = new Handler() {
@@ -75,6 +80,7 @@ public abstract class  BaseActivity extends FragmentActivity {
     public abstract int setTittle();
 
     public void btnAll(View view){
+
         Intent intent= new Intent(this, HomeActivity.class);
         startActivity(intent);
         Toast.makeText(this,"btnAll被单击",Toast.LENGTH_SHORT).show();

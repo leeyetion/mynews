@@ -1,18 +1,15 @@
 package news.crc.com.mynews.home.fragment;
 
 
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -20,14 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
-
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.util.DensityUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHeadline extends Fragment {
+public class FragmentHeadlinebak extends Fragment {
 
 
     private PagerSlidingTabStrip tabs = null;
@@ -36,6 +32,9 @@ public class FragmentHeadline extends Fragment {
     List<Fragment> f_list = null;
 
     List<RequestModel> rmlist = null;
+    public FragmentHeadlinebak() {
+        // Required empty public constructor
+    }
 
 
     @Override
@@ -125,10 +124,5 @@ public class FragmentHeadline extends Fragment {
             return f_list.get(arg0);
         }
     }
-
-
-
-
-
 
 }
