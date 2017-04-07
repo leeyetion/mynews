@@ -1,10 +1,6 @@
 package news.crc.com.mynews.home.activity;
 
 
-import android.app.Activity;
-
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,10 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import news.crc.com.mynews.R;
 import news.crc.com.mynews.home.fragment.FragmentAccount;
@@ -31,11 +23,8 @@ public class HomeActivity extends FragmentActivity {
     FragmentDiscover fragmentDiscover = null;
     FragmentAccount fragmentAccount = null;
 
-
     FragmentTransaction transaction = null;
     FragmentManager fm = null;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +35,6 @@ public class HomeActivity extends FragmentActivity {
         fragmentHeadline = new FragmentHeadline();
         transaction.replace(R.id.fm_content, fragmentHeadline);
         transaction.commit();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
     }
 

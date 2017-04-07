@@ -32,6 +32,7 @@ public class FragmentHeadline extends Fragment {
 
     private PagerSlidingTabStrip tabs = null;
     private ViewPager vp_fragement = null;
+    private TextView tv_title=null;
 
     List<Fragment> f_list = null;
 
@@ -45,12 +46,13 @@ public class FragmentHeadline extends Fragment {
         View view=inflater.inflate(R.layout.fragment_headline, container, false);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         vp_fragement = (ViewPager) view.findViewById(R.id.vp_fragement);
+        tv_title=(TextView)view.findViewById(R.id.tv_title);
+        tv_title.setText(R.string.headline_title);
 
         InitData();
 
         return view;
     }
-
 
     private void InitData() {
         rmlist = new ArrayList<RequestModel>();

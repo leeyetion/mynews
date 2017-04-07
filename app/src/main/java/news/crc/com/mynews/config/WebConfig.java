@@ -13,5 +13,4 @@ public class WebConfig {
     public static String url="http://api.dagoogle.cn/news/get-news";
     static List<RequestModel> rlist=new ArrayList<RequestModel>();
 
-
 }

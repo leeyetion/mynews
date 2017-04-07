@@ -36,6 +36,7 @@
         <item name="android:gravity">center_horizontal</item>
         <!-- 取消单选按钮 -->
         <item name="android:button">@null</item>
+        <item name="android:drawablePadding">10dp</item>
 
     </style>
 

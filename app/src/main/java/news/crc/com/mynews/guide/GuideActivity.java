@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,20 +28,25 @@ import news.crc.com.mynews.util.SharedPreUtils;
 /**
  * 引导页面，用户第一次打开app进入该页面
  */
+@ContentView(R.layout.activity_guide)
 public class GuideActivity extends Activity {
 
-    private ViewPager vp_guide=null;   //存放引导页4张图片
-    private LinearLayout ll_dot=null;   //存放四个点水平布局
-    private ImageView iv_dot_red=null;  //红点
+    @ViewInject(R.id.vp_guide)
+    private ViewPager vp_guide;   //存放引导页4张图片
+
+    @ViewInject(R.id.ll_dot)
+    private LinearLayout ll_dot;   //存放四个点水平布局
+
+    @ViewInject(R.id.iv_dot_red)
+    private ImageView iv_dot_red;  //红点
 
     private List<View> iList=null;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-
-        initView();
+        //setContentView(R.layout.activity_guide);
+        x.view().inject(this);
 
         initData();
 
@@ -53,11 +62,6 @@ public class GuideActivity extends Activity {
         startActivity(intent);
     }
 
-    private void initView() {
-        vp_guide=(ViewPager)findViewById(R.id.vp_guide);
-        ll_dot=(LinearLayout)findViewById(R.id.ll_dot);
-        iv_dot_red=(ImageView)findViewById(R.id.iv_dot_red);
-    }
 
     private void initData() {
         vp_guide.setAdapter(new MyAdapter());
@@ -75,7 +79,6 @@ public class GuideActivity extends Activity {
             dotView.setLayoutParams(params);
             ll_dot.addView(dotView);
         }
-
 
         //设置监听器，监听viewpager页面切换
         vp_guide.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

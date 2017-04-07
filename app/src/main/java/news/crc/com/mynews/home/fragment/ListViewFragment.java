@@ -123,7 +123,7 @@ public class ListViewFragment extends Fragment {
 
             String title="";
             if(news.getTitle().length()>20){
-                title=news.getTitle().substring(1,20)+"...";
+                title=news.getTitle().substring(1,15)+"...";
             }else {
                 title=news.getTitle();
             }

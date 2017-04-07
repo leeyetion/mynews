@@ -11,7 +11,6 @@
         <!-- 因为同一时间是能有一个按钮被选中,因此建议使用Radio -->
 
         <RadioButton
-
             style="@style/btnStyle"
             android:drawableTop="@drawable/selector_all"
             android:onClick="btnAll"

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.xutils.view.annotation.ContentView;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,12 +15,13 @@ import news.crc.com.mynews.guide.GuideActivity;
 import news.crc.com.mynews.home.activity.HomeActivity;
 import news.crc.com.mynews.util.SharedPreUtils;
 
+@ContentView(R.layout.activity_index)
 public class IndexActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_index);
+       // setContentView(R.layout.activity_index);
         /*
         *主界面停留2秒后进行判断是直接跳到 HomeActivity.class还是跳转到GuideActivity.class
         * */
