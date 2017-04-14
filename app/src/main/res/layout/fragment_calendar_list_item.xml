@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_home"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:background="#fafafa"
+    tools:context="news.crc.com.mynews.home.HomeActivity">
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:background="#fafafa"
+        android:layout_height="match_parent">
+
+        <com.fang.dashview.DashView
+            android:layout_marginLeft="25dp"
+            android:layout_width="2px"
+            android:layout_height="300dp"
+            app:dashWidth="2dp"
+            app:lineWidth="4dp"
+            app:lineColor="#ff000000"
+            app:dashOrientation="1"
+            app:lineHeight="1dp"
+            />
+
+        <TextView
+
+            android:id="@+id/tv_date"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:textSize="10sp"
+            android:padding="6dp"
+            android:text="5小时前"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:padding="1dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/border_gray_bottom_right"
+        android:layout_height="90dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:text="美国袭击叙利亚：俄罗斯伊朗反对 英日澳等支持"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_image_news"
+            android:padding="8dp"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:src="@drawable/imge_test"
+            android:scaleType="fitCenter"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

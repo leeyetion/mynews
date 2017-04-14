@@ -16,6 +16,12 @@ public class DataBean {
     private String reply_count;
     private String edit_time;
 
+    public DataBean(String title) {
+        this.title = title;
+    }
+    public DataBean() {
+
+    }
 
     public String getNews_id() {
         return news_id;

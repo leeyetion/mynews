@@ -13,24 +13,32 @@
         android:gravity="center"
         android:paddingBottom="5dp"
         android:textSize="25sp"
-        android:text="我是标题"
-        android:background="@color/colorPrimary"/>
+        android:text="时间链"
+        android:padding="4dp"
+        android:background="#FFF"/>
 
-    <!--<com.astuetz.PagerSlidingTabStrip-->
-        <!--android:id="@+id/tabs"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="48dip"-->
-        <!--android:background="@color/background_tab_pressed" />-->
-    <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/vp_fragement"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:flipInterval="30"-->
-        <!--android:persistentDrawingCache="animation"/>-->
-    <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pfl_main_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        cube_ptr:ptr_duration_to_close="200"
+        cube_ptr:ptr_duration_to_close_header="1000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
+
+        <ListView
+            android:divider="@null"
+            android:id="@+id/lv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 </LinearLayout>

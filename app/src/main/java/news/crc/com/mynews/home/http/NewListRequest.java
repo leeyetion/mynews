@@ -21,6 +21,7 @@ import news.crc.com.mynews.home.fragment.ListViewFragment;
 import news.crc.com.mynews.home.model.DataBean;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.home.model.WebNews;
+import news.crc.com.mynews.util.SharedPreUtils;
 
 /**
  * Created by crcement on 2017/3/27.
@@ -30,6 +31,7 @@ public class NewListRequest {
 
     protected Handler mRequestHandler;
     protected Context mContext;
+
 
     public NewListRequest(Context mContext, Handler mRequestHandler) {
         this.mContext=mContext;
@@ -60,6 +62,9 @@ public class NewListRequest {
 // params.addBodyParameter("uploadFile", new File("/sdcard/test.txt"));
 
         RequestParams params = new RequestParams(weburl);
+
+        final String url=weburl;
+
         Callback.Cancelable cancelable
                 = x.http().get(params,
                 /**
@@ -96,7 +101,8 @@ public class NewListRequest {
                     public void onSuccess(String result) {
                         // 获取返回的json数据
                         String json = result;
-                        Log.i("mytag",json);
+                        Log.i("mytag","返回报文-------"+json);
+                        SharedPreUtils.setString(mContext,url,result);
                         Gson gson = new Gson();
                         WebNews webNew=new WebNews();
                         webNew=gson.fromJson(json,
@@ -105,8 +111,9 @@ public class NewListRequest {
                         // ListView通过适配器模式加载数据
 
                         int i=webNew.getData().size();
-                        Log.i("mytag","--------"+i);
                         List<DataBean> datlist=webNew.getData();
+
+                        Log.i("mytag","新闻数量-------"+datlist.size());
 
                         mRequestHandler.sendMessage(mRequestHandler.obtainMessage(200, datlist));
                     }
@@ -124,15 +131,18 @@ public class NewListRequest {
                             // ...
                         }
                         Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.i("mytag","网络请求失败");
                     }
 
                     @Override
                     public void onCancelled(CancelledException cex) {
                         Toast.makeText(x.app(), "cancelled", Toast.LENGTH_LONG).show();
+                        Log.i("mytag","网络请求取消");
                     }
 
                     @Override
                     public void onFinished() {
+                        Log.i("mytag","网络请求完成");
 
                     }
                 });

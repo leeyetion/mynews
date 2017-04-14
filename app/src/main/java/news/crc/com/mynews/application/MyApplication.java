@@ -14,6 +14,7 @@ import javax.net.ssl.SSLSession;
 
 public class MyApplication extends Application {
     @Override
+    //</editor-fold>
     public void onCreate() {
         super.onCreate();
         x.Ext.init(this);

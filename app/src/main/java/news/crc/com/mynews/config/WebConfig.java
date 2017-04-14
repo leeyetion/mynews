@@ -11,6 +11,7 @@ import news.crc.com.mynews.home.model.RequestModel;
 
 public class WebConfig {
     public static String url="http://api.dagoogle.cn/news/get-news";
+    public static String url1="http://hiwbs101083.jsp.jspee.com.cn/NewServlet";
     static List<RequestModel> rlist=new ArrayList<RequestModel>();
 
 }

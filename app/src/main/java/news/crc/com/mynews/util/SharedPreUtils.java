@@ -37,5 +37,28 @@ public class SharedPreUtils {
         return ref.getBoolean(key, defValue);
     }
 
+    /**
+     * 设置boolean值保存到文件中
+     * @param ctx 上下文
+     * @param key 数据得主键
+     * @param value 数据的值
+     */
+    public static void setString(Context ctx, String key, String value) {
+        SharedPreferences ref = ctx.getSharedPreferences(config, Context.MODE_PRIVATE);
+        ref.edit().putString(key, value).commit();
+    }
+
+    /**
+     * 根据key获取对应的值
+     * @param ctx 上下文
+     * @param key
+     * @param defValue 如果获取失败设置一个默认值
+     * @return 返回参数key对应的boolean,如果不存在返回参数defValue
+     */
+    public static String getString(Context ctx, String key,String defValue) {
+        SharedPreferences ref = ctx.getSharedPreferences(config, Context.MODE_PRIVATE);
+        return ref.getString(key,defValue);
+    }
+
 
 }

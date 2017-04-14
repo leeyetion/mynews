@@ -1,21 +1,12 @@
-package news.crc.com.mynews.home;
+package news.crc.com.mynews.home.activity;
 
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -23,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
+import news.crc.com.mynews.base.BaseActivity;
 import news.crc.com.mynews.home.fragment.ListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.util.DensityUtils;
 
-public class HomeActivity extends FragmentActivity {
-
+public class HomeActivitybak extends BaseActivity {
     private PagerSlidingTabStrip tabs = null;
     private ViewPager vp_fragement = null;
 
@@ -36,18 +27,6 @@ public class HomeActivity extends FragmentActivity {
 
     List<RequestModel> rmlist = null;
 
-
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        initView();
-        InitData();
-
-    }
 
     private void InitData() {
         rmlist = new ArrayList<RequestModel>();
@@ -97,18 +76,28 @@ public class HomeActivity extends FragmentActivity {
         tabs.setViewPager(vp_fragement);
     }
 
-    private void initView() {
+
+
+    @Override
+    public void initView(Bundle bundle) {
+
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         vp_fragement = (ViewPager) findViewById(R.id.vp_fragement);
+
+        InitData();
     }
 
-
-    static class ViewHolder {
-
-        public ViewHolder(View view) {
-
-        }
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
     }
+
+    @Override
+    public int setTittle() {
+        return R.string.headline_title;
+
+    }
+
 
 
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -136,7 +125,5 @@ public class HomeActivity extends FragmentActivity {
             return f_list.get(arg0);
         }
     }
-
-
 
 }
