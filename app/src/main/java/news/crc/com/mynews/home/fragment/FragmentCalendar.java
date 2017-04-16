@@ -23,7 +23,9 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -85,6 +87,13 @@ public class FragmentCalendar extends Fragment {
 
         //获取相对布局
         RelativeLayout ViewLayout = (RelativeLayout) RelativeLayout.inflate(getActivity(),R.layout.fragment_calendar_list_header,null);
+        TextView tv_date=(TextView) ViewLayout.findViewById(R.id.tv_date);
+        TextView tv_nowday=(TextView)ViewLayout.findViewById(R.id.tv_nowday);
+        SimpleDateFormat df = new SimpleDateFormat("MM月dd日 yyyy年");//设置日期格式yyyy-MM-dd HH:mm:ss
+        //System.out.println();// new Date()为获取当前系统时间
+        tv_date.setText(df.format(new Date()));
+
+
         lv_content.addHeaderView(ViewLayout);     //listview增加头文件
 
         lv_content.setAdapter(adaper);

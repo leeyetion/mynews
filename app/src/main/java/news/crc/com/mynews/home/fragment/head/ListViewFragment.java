@@ -1,4 +1,4 @@
-package news.crc.com.mynews.home.fragment;
+package news.crc.com.mynews.home.fragment.head;
 
 
 import android.os.Handler;
@@ -9,27 +9,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import com.loopj.android.image.SmartImageView;
 
+import org.xutils.common.util.DensityUtil;
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import news.crc.com.mynews.R;
 import news.crc.com.mynews.config.WebConfig;
 import news.crc.com.mynews.home.http.NewListRequest;
-import news.crc.com.mynews.home.model.BaseNews;
 import news.crc.com.mynews.home.model.DataBean;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.home.model.WebNews;
+import news.crc.com.mynews.view.CarouselView;
+import news.crc.com.mynews.view.ConvertUtils;
 
 
 /**
@@ -41,6 +46,9 @@ public class ListViewFragment extends Fragment {
     ListView lv_news=null;
     List<WebNews> nlist=null;
     List<DataBean> datlist=null;
+
+    private LayoutInflater mInflater;
+    private PtrClassicFrameLayout pfl_main_refresh;
 
     MyAdapter adapter=new MyAdapter();
 
@@ -66,17 +74,87 @@ public class ListViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_news, container, false);//关联布局文件
-
-        lv_news=(ListView)view.findViewById(R.id.lv_news);
-
         nlist=new ArrayList<WebNews>();
 
         datlist=new ArrayList<DataBean>();
-        datlist.add(new DataBean());
 
         //initweb();
         initwebs();
+        View view = inflater.inflate(R.layout.fragment_headline_list, container, false);//关联布局文件
+
+        lv_news=(ListView)view.findViewById(R.id.lv_news);
+
+        mInflater = LayoutInflater.from(getActivity());
+
+        View headView = mInflater.inflate(R.layout.fragment_headline_list_header,null);
+
+        CarouselView carouselView = (CarouselView)headView.findViewById(R.id.cv_mycview);
+
+        carouselView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(300)));
+
+        lv_news.addHeaderView(carouselView);
+
+        carouselView.setAdapter(new CarouselView.Adapter() {
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public View getView(int position) {
+                View view = mInflater.inflate(R.layout.fragment_headline_list_header_item,null);
+                ImageView imageView = (ImageView) view.findViewById(R.id.image);
+                TextView tv_title=(TextView)view.findViewById(R.id.tv_title);
+
+                ImageOptions imageOptions=new ImageOptions.Builder()
+                        .setIgnoreGif(false)//是否忽略gif图。false表示不忽略。不写这句，默认是true
+                        .setImageScaleType(ImageView.ScaleType.FIT_XY)
+                        .setFailureDrawableId(R.drawable.imge_test)
+                        .setLoadingDrawableId(R.mipmap.ic_launcher)
+                        .build();
+                x.image().bind(imageView,datlist.get(datlist.size()-1-position).getTop_image(), imageOptions);
+                tv_title.setText(datlist.get(datlist.size()-1-position).getTitle());
+
+               // imageView.setImageResource(mImagesSrc[position]);
+                return view;
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        });
+
+
+
+
+
+        pfl_main_refresh=(PtrClassicFrameLayout)view.findViewById(R.id.pfl_main_refresh);
+        pfl_main_refresh.setLastUpdateTimeRelateObject(this);
+        pfl_main_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                // here check list view, not content.
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame,content, header);
+                //return false;
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pfl_main_refresh.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+//                        newListRequest.startConnection(weburl);
+                        //  mRequestHandler.sendMessage(Message.obtain());
+                        pfl_main_refresh.refreshComplete();
+                    }
+                }, 1500);
+
+            }
+        });
+
+
 
         return view;
     }
@@ -107,7 +185,7 @@ public class ListViewFragment extends Fragment {
             ListViewFragment.ViewHolder viewHolder;
 
             if (view == null) {
-                view = View.inflate(getActivity(),R.layout.list_news_item,null);
+                view = View.inflate(getActivity(),R.layout.fragment_headline_list_item,null);
                 viewHolder = new ListViewFragment.ViewHolder();
                 viewHolder.siv_image=(SmartImageView) view.findViewById(R.id.siv_image);
                 viewHolder.txt_title=(TextView)view.findViewById(R.id.txt_title);

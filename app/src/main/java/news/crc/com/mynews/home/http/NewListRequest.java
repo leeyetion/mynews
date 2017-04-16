@@ -1,7 +1,6 @@
 package news.crc.com.mynews.home.http;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,10 +15,7 @@ import org.xutils.x;
 
 import java.util.List;
 
-import news.crc.com.mynews.config.WebConfig;
-import news.crc.com.mynews.home.fragment.ListViewFragment;
 import news.crc.com.mynews.home.model.DataBean;
-import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.home.model.WebNews;
 import news.crc.com.mynews.util.SharedPreUtils;
 

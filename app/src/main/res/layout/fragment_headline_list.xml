@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_home"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="news.crc.com.mynews.home.HomeActivity">
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="5dp"
-        android:textSize="25sp"
-        android:text="时间链"
-        android:padding="4dp"
-        android:background="#FFF"/>
+    android:orientation="vertical">
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pfl_main_refresh"
@@ -31,12 +18,11 @@
         cube_ptr:ptr_resistance="1.7">
 
         <ListView
-            android:divider="@null"
-            android:id="@+id/lv_content"
+            android:id="@+id/lv_news"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         </ListView>
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
 </LinearLayout>

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:background="#fafafa"
-    tools:context="news.crc.com.mynews.home.HomeActivity">
+    tools:context="news.crc.com.mynews.home.activity.HomeActivity">
 
     <RelativeLayout
         android:layout_weight="1"
@@ -21,7 +21,7 @@
             android:layout_height="300dp"
             app:dashWidth="2dp"
             app:lineWidth="4dp"
-            app:lineColor="#ff000000"
+            app:lineColor="@color/black"
             app:dashOrientation="1"
             app:lineHeight="1dp"
             />

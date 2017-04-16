@@ -49,6 +49,29 @@ public class GuideActivity extends Activity {
         x.view().inject(this);
 
         initData();
+       /*
+       new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Boolean isLooper = true;
+                while (isLooper){
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //这里是设置当前页的下一页
+                            vp_guide.setCurrentItem(vp_guide.getCurrentItem() + 1);
+                        }
+                    });
+                }
+            }
+        }).start();
+        */
 
     }
 

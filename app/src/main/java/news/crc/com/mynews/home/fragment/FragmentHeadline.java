@@ -1,7 +1,5 @@
 package news.crc.com.mynews.home.fragment;
 
-
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Color;
@@ -9,20 +7,26 @@ import android.os.Bundle;
 
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
 
+import news.crc.com.mynews.home.fragment.head.ListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
+import news.crc.com.mynews.home.model.WebNews;
 import news.crc.com.mynews.util.DensityUtils;
+import news.crc.com.mynews.util.SharedPreUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,12 +36,11 @@ public class FragmentHeadline extends Fragment {
 
     private PagerSlidingTabStrip tabs = null;
     private ViewPager vp_fragement = null;
-    private TextView tv_title=null;
 
     List<Fragment> f_list = null;
-
     List<RequestModel> rmlist = null;
 
+    String news_Category=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,24 +49,29 @@ public class FragmentHeadline extends Fragment {
         View view=inflater.inflate(R.layout.fragment_headline, container, false);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         vp_fragement = (ViewPager) view.findViewById(R.id.vp_fragement);
-        tv_title=(TextView)view.findViewById(R.id.tv_title);
-        tv_title.setText(R.string.headline_title);
-
         InitData();
-
         return view;
     }
 
     private void InitData() {
-        rmlist = new ArrayList<RequestModel>();
-        rmlist.add(new RequestModel("头条", 1, 15));
-        rmlist.add(new RequestModel("娱乐", 2, 15));
-        rmlist.add(new RequestModel("军事", 3, 15));
-        rmlist.add(new RequestModel("汽车", 4, 15));
-        rmlist.add(new RequestModel("财经", 5, 15));
-        rmlist.add(new RequestModel("笑话", 6, 15));
-        rmlist.add(new RequestModel("体育", 7, 15));
-        rmlist.add(new RequestModel("科技", 8, 15));
+        Gson gson=new Gson();
+        news_Category=SharedPreUtils.getString(getActivity(),"news_Category",null);
+        if (news_Category==null) {
+            rmlist = new ArrayList<RequestModel>();
+            rmlist.add(new RequestModel("头条", 1, 15));
+            rmlist.add(new RequestModel("娱乐", 2, 15));
+            rmlist.add(new RequestModel("军事", 3, 15));
+            rmlist.add(new RequestModel("汽车", 4, 15));
+            rmlist.add(new RequestModel("财经", 5, 15));
+            rmlist.add(new RequestModel("笑话", 6, 15));
+            rmlist.add(new RequestModel("体育", 7, 15));
+            rmlist.add(new RequestModel("科技", 8, 15));
+            String news_Category=gson.toJson(rmlist);
+            SharedPreUtils.setString(getActivity(),"news_Category",news_Category);
+        }else {
+            Log.d("mytag", "InitData: "+news_Category);
+            rmlist=gson.fromJson(news_Category,new TypeToken<List<RequestModel>>(){}.getType());
+        }
 
         f_list = new ArrayList<Fragment>();
         for (int i = 0; i < rmlist.size(); i++) {
@@ -94,11 +102,10 @@ public class FragmentHeadline extends Fragment {
         // 标签分割线颜色
         tabs.setDividerColor(Color.TRANSPARENT);
         // 标签分割线边距
-        tabs.setDividerPadding(DensityUtils.dpi2px(getActivity(), (int) 1.0f));
+        tabs.setDividerPadding(DensityUtils.dpi2px(getActivity(),9));
         tabs.setShouldExpand(true);
         // 绑定适配器
         // 是否可以滚动
-
         tabs.setViewPager(vp_fragement);
     }
 
@@ -128,9 +135,9 @@ public class FragmentHeadline extends Fragment {
         }
     }
 
+    private void initviewPage(){
 
-
-
+    }
 
 
 }
