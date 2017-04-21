@@ -9,6 +9,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 /**
+ * 引入Xutil
  * Created by crcement on 2017/3/29.
  */
 

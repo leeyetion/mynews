@@ -18,13 +18,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import news.crc.com.mynews.R;
+import news.crc.com.mynews.util.DensityUtils;
 
 /**
+ * 自定义显示标签显示效果为ListView+头部图片切换
  *
- */
-/**
- * user: yangqiangyu on 1/18/16 10:32
- * csdn: http://blog.csdn.net/yissan
  */
 public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeListener {
     private Context context;
@@ -92,7 +90,7 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
             View view = new View(context);
             if (currentPosition==i){
                 view.setPressed(true);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageItemWidth + ConvertUtils.dip2px(context,3),pageItemWidth + ConvertUtils.dip2px(context,3));
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageItemWidth + DensityUtils.dpi2px(context,3),pageItemWidth + DensityUtils.dpi2px(context,3));
                 params.setMargins(pageItemWidth, 0, 0, 0);
                 view.setLayoutParams(params);
             }else {
@@ -136,7 +134,7 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
         View view = LayoutInflater.from(context).inflate(R.layout.view_carousel_layout,null);
         this.viewPager = (ViewPager) view.findViewById(R.id.gallery);
         this.carouselLayout = (LinearLayout)view.findViewById(R.id.CarouselLayoutPage);
-        pageItemWidth = ConvertUtils.dip2px(context,5);
+        pageItemWidth = DensityUtils.dpi2px(context,5);
         this.viewPager.addOnPageChangeListener(this);
         addView(view);
     }
@@ -154,7 +152,7 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
             View view = carouselLayout.getChildAt(i);
             if(position%showCount==i){
                 view.setSelected(true);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageItemWidth + ConvertUtils.dip2px(context,3),pageItemWidth + ConvertUtils.dip2px(context,3));
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageItemWidth + DensityUtils.dpi2px(context,3),pageItemWidth + DensityUtils.dpi2px(context,3));
                 params.setMargins(pageItemWidth, 0, 0, 0);
                 view.setLayoutParams(params);
             }else {

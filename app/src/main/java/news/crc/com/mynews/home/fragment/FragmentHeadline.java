@@ -1,5 +1,6 @@
 package news.crc.com.mynews.home.fragment;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Color;
@@ -11,31 +12,42 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
 
-import news.crc.com.mynews.home.fragment.head.ListViewFragment;
+import news.crc.com.mynews.home.fragment.head.ImageListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
-import news.crc.com.mynews.home.model.WebNews;
 import news.crc.com.mynews.util.DensityUtils;
 import news.crc.com.mynews.util.SharedPreUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+@ContentView(R.layout.fragment_headline)
 public class FragmentHeadline extends Fragment {
 
 
-    private PagerSlidingTabStrip tabs = null;
-    private ViewPager vp_fragement = null;
+    @ViewInject(R.id.tabs)
+    private PagerSlidingTabStrip tabs;
+
+    @ViewInject(R.id.vp_fragement)
+    private ViewPager vp_fragement;
+
+    @ViewInject(R.id.iv_tabs_more)
+    private ImageView iv_tabs_more;
 
     List<Fragment> f_list = null;
     List<RequestModel> rmlist = null;
@@ -46,11 +58,24 @@ public class FragmentHeadline extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_headline, container, false);
-        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-        vp_fragement = (ViewPager) view.findViewById(R.id.vp_fragement);
+        //View view=inflater.inflate(R.layout.fragment_headline, container, false);
+      //  tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+       // vp_fragement = (ViewPager) view.findViewById(R.id.vp_fragement);
+
+        return x.view().inject(this,inflater,null);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         InitData();
-        return view;
+
+        iv_tabs_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "iv_tabs_more", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void InitData() {
@@ -75,7 +100,7 @@ public class FragmentHeadline extends Fragment {
 
         f_list = new ArrayList<Fragment>();
         for (int i = 0; i < rmlist.size(); i++) {
-            f_list.add(ListViewFragment.newInstance(rmlist.get(i)));
+            f_list.add(ImageListViewFragment.newInstance(rmlist.get(i)));
         }
         //给ViewPager设置适配器
         vp_fragement.setAdapter(new MyFragmentPagerAdapter(getFragmentManager(), f_list));

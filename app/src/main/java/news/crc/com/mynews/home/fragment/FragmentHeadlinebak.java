@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
-import news.crc.com.mynews.home.fragment.head.ListViewFragment;
+import news.crc.com.mynews.home.fragment.head.ImageListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.util.DensityUtils;
 
@@ -65,7 +65,7 @@ public class FragmentHeadlinebak extends Fragment {
 
         f_list = new ArrayList<Fragment>();
         for (int i = 0; i < rmlist.size(); i++) {
-            f_list.add(ListViewFragment.newInstance(rmlist.get(i)));
+            f_list.add(ImageListViewFragment.newInstance(rmlist.get(i)));
         }
         //给ViewPager设置适配器
         vp_fragement.setAdapter(new MyFragmentPagerAdapter(getFragmentManager(), f_list));

@@ -4,6 +4,7 @@ package news.crc.com.mynews.home.fragment.head;
 import android.os.Handler;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.loopj.android.image.SmartImageView;
 
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
@@ -34,21 +33,22 @@ import news.crc.com.mynews.home.model.DataBean;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.home.model.WebNews;
 import news.crc.com.mynews.view.CarouselView;
-import news.crc.com.mynews.view.ConvertUtils;
 
 
 /**
  * Created by liyesheng on 2017/3/26.
  */
 
-public class ListViewFragment extends Fragment {
+public class ImageListViewFragment extends Fragment {
 
     ListView lv_news=null;
     List<WebNews> nlist=null;
     List<DataBean> datlist=null;
 
-    private LayoutInflater mInflater;
-    private PtrClassicFrameLayout pfl_main_refresh;
+
+    private LayoutInflater mHeadInflater;//ListView头视图
+
+    private PtrClassicFrameLayout pfl_main_refresh;  //下拉刷新空间
 
     MyAdapter adapter=new MyAdapter();
 
@@ -62,8 +62,8 @@ public class ListViewFragment extends Fragment {
         }
     };
 
-    public static ListViewFragment newInstance(RequestModel rm) {
-        ListViewFragment newFragment = new ListViewFragment();
+    public static ImageListViewFragment newInstance(RequestModel rm) {
+        ImageListViewFragment newFragment = new ImageListViewFragment();
         Bundle bundle = new Bundle();
         String weburl= WebConfig.url+"?tableNum="+rm.getTableNum()+"&pagesize="+rm.getPageSize();
         bundle.putString("weburl", weburl);
@@ -74,23 +74,19 @@ public class ListViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        nlist=new ArrayList<WebNews>();
+        initDate();
 
-        datlist=new ArrayList<DataBean>();
-
-        //initweb();
-        initwebs();
         View view = inflater.inflate(R.layout.fragment_headline_list, container, false);//关联布局文件
 
         lv_news=(ListView)view.findViewById(R.id.lv_news);
 
-        mInflater = LayoutInflater.from(getActivity());
+        mHeadInflater = LayoutInflater.from(getActivity());
 
-        View headView = mInflater.inflate(R.layout.fragment_headline_list_header,null);
+        View headView = mHeadInflater.inflate(R.layout.fragment_headline_list_header,null);
 
         CarouselView carouselView = (CarouselView)headView.findViewById(R.id.cv_mycview);
 
-        carouselView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(300)));
+        carouselView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(280)));
 
         lv_news.addHeaderView(carouselView);
 
@@ -102,7 +98,7 @@ public class ListViewFragment extends Fragment {
 
             @Override
             public View getView(int position) {
-                View view = mInflater.inflate(R.layout.fragment_headline_list_header_item,null);
+                View view = mHeadInflater.inflate(R.layout.fragment_headline_list_header_item,null);
                 ImageView imageView = (ImageView) view.findViewById(R.id.image);
                 TextView tv_title=(TextView)view.findViewById(R.id.tv_title);
 
@@ -154,12 +150,17 @@ public class ListViewFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+
+
+
+    }
 
     //定义适配器
     class MyAdapter extends BaseAdapter {
@@ -182,28 +183,35 @@ public class ListViewFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
-            ListViewFragment.ViewHolder viewHolder;
+            ImageListViewFragment.ViewHolder viewHolder;
 
             if (view == null) {
                 view = View.inflate(getActivity(),R.layout.fragment_headline_list_item,null);
-                viewHolder = new ListViewFragment.ViewHolder();
-                viewHolder.siv_image=(SmartImageView) view.findViewById(R.id.siv_image);
+                viewHolder = new ImageListViewFragment.ViewHolder();
+                viewHolder.siv_image=(ImageView) view.findViewById(R.id.siv_image);
                 viewHolder.txt_title=(TextView)view.findViewById(R.id.txt_title);
                 viewHolder.txt_from=(TextView)view.findViewById(R.id.txt_from);
                 view.setTag(viewHolder);
             }else{
-                viewHolder = (ListViewFragment.ViewHolder) view.getTag();
+                viewHolder = (ImageListViewFragment.ViewHolder) view.getTag();
             }
             DataBean news=(DataBean)getItem(i);
-            //设置Item的值
 
-            viewHolder.siv_image.setImageUrl(news.getTop_image());
+            ImageOptions imageOptions=new ImageOptions.Builder()
+                    .setIgnoreGif(false)//是否忽略gif图。false表示不忽略。不写这句，默认是true
+                    .setImageScaleType(ImageView.ScaleType.FIT_XY)
+                    .setFailureDrawableId(R.drawable.imge_test)
+                    .setLoadingDrawableId(R.mipmap.ic_launcher)
+                    .build();
+            //设置Item的值
+            x.image().bind( viewHolder.siv_image,news.getTop_image(), imageOptions);
 
             String title="";
-            if(news.getTitle().length()>20){
-                title=news.getTitle().substring(1,15)+"...";
+            if(news.getTitle().length()>35){
+                title=news.getTitle().substring(0,34)+"...";
             }else {
                 title=news.getTitle();
+
             }
 
             viewHolder.txt_title.setText(title);
@@ -216,7 +224,7 @@ public class ListViewFragment extends Fragment {
 
     static class ViewHolder{
 
-        SmartImageView siv_image;
+        ImageView siv_image;
         TextView txt_title;
         TextView txt_from;
     }
@@ -228,7 +236,15 @@ public class ListViewFragment extends Fragment {
         String weburl=bundle.getString("weburl");
         NewListRequest newListRequest=new NewListRequest(getActivity(),mRequestHandler);
         newListRequest.startConnection(weburl);
-
     }
+
+    private void initDate(){
+        nlist=new ArrayList<WebNews>();
+        datlist=new ArrayList<DataBean>();
+
+        //initweb();
+        initwebs();
+    }
+
 
 }
