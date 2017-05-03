@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,10 @@ import news.crc.com.mynews.home.fragment.FragmentDiscover;
 import news.crc.com.mynews.home.fragment.FragmentHeadline;
 import news.crc.com.mynews.home.fragment.FragmentTelevision;
 
+/**
+ *
+ */
+
 public class HomeActivity extends FragmentActivity {
     FragmentHeadline fragmentHeadline = null;
     FragmentCalendar fragmentCalendar = null;
@@ -28,7 +33,7 @@ public class HomeActivity extends FragmentActivity {
     FragmentDiscover fragmentDiscover = null;
     FragmentAccount fragmentAccount = null;
 
-    FragmentTransaction transaction = null;
+  //  FragmentTransaction transaction = null;
     FragmentManager fm = null;
 
     private boolean isAppExit = false;
@@ -47,7 +52,7 @@ public class HomeActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
         fm = getSupportFragmentManager();
-        transaction = fm.beginTransaction();
+        FragmentTransaction transaction = fm.beginTransaction();
         fragmentHeadline = new FragmentHeadline();
         transaction.replace(R.id.fm_content, fragmentHeadline);
         transaction.commit();
@@ -58,23 +63,28 @@ public class HomeActivity extends FragmentActivity {
     public void btnAll(View view) {
 
         // 开启Fragment事务
-        transaction = fm.beginTransaction();
-        fragmentHeadline = new FragmentHeadline();
+        FragmentTransaction transaction = fm.beginTransaction();
+        if (fragmentHeadline==null) {
+            fragmentHeadline = new FragmentHeadline();
+        }
         transaction.replace(R.id.fm_content, fragmentHeadline);
+
         transaction.commit();
         Toast.makeText(this, "btnAll被单击", Toast.LENGTH_SHORT).show();
     }
 
     public void btnCalendar(View view) {
-        transaction = fm.beginTransaction();
-        fragmentCalendar = new FragmentCalendar();
+        FragmentTransaction transaction = fm.beginTransaction();
+        if (fragmentCalendar==null) {
+            fragmentCalendar = new FragmentCalendar();
+        }
         transaction.replace(R.id.fm_content, fragmentCalendar);
         transaction.commit();
         Toast.makeText(this, "btnCalendar被单击", Toast.LENGTH_SHORT).show();
     }
 
     public void btnElectronics(View view) {
-        transaction = fm.beginTransaction();
+        FragmentTransaction transaction = fm.beginTransaction();
         fragmentTelevision = new FragmentTelevision();
         transaction.replace(R.id.fm_content, fragmentTelevision);
         transaction.commit();
@@ -82,7 +92,7 @@ public class HomeActivity extends FragmentActivity {
     }
 
     public void btnJewelry(View view) {
-        transaction = fm.beginTransaction();
+        FragmentTransaction transaction = fm.beginTransaction();
         fragmentDiscover = new FragmentDiscover();
         transaction.replace(R.id.fm_content, fragmentDiscover);
         transaction.commit();
@@ -90,7 +100,7 @@ public class HomeActivity extends FragmentActivity {
     }
 
     public void btnAccount(View view) {
-        transaction = fm.beginTransaction();
+        FragmentTransaction transaction = fm.beginTransaction();
         fragmentAccount = new FragmentAccount();
         transaction.replace(R.id.fm_content, fragmentAccount);
         transaction.commit();

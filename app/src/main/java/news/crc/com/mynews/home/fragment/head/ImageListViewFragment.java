@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
@@ -38,34 +40,39 @@ import news.crc.com.mynews.view.CarouselView;
 /**
  * Created by liyesheng on 2017/3/26.
  */
-
+@ContentView(R.layout.fragment_headline_list)
 public class ImageListViewFragment extends Fragment {
 
-    ListView lv_news=null;
-    List<WebNews> nlist=null;
+
+
     List<DataBean> datlist=null;
+    List<WebNews> nlist=null;
+
+    @ViewInject(R.id.lv_news)
+    ListView lv_news;
 
 
     private LayoutInflater mHeadInflater;//ListView头视图
 
+    @ViewInject(R.id.pfl_main_refresh)
     private PtrClassicFrameLayout pfl_main_refresh;  //下拉刷新空间
 
-    MyAdapter adapter=new MyAdapter();
+    MyAdapter adapter=null;
 
     Handler mRequestHandler= new Handler(){
         public void handleMessage(android.os.Message msg){
-
             datlist=(ArrayList<DataBean>)msg.obj;
-            Log.i("mytag",msg.what+"-------------"+datlist.size());
             lv_news.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
     };
 
     public static ImageListViewFragment newInstance(RequestModel rm) {
+
         ImageListViewFragment newFragment = new ImageListViewFragment();
         Bundle bundle = new Bundle();
         String weburl= WebConfig.url+"?tableNum="+rm.getTableNum()+"&pagesize="+rm.getPageSize();
+        Log.i("mytag","ImageListViewFragment----->newInstance---->"+weburl);
         bundle.putString("weburl", weburl);
         newFragment.setArguments(bundle);
         return newFragment;
@@ -74,13 +81,43 @@ public class ImageListViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Log.i("mytag","ImageListViewFragment----->onCreateView----------------------"+inflater);
+        return x.view().inject(this,inflater,null);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Log.i("mytag","ImageListViewFragment----->onViewCreated----------------------"+view);
+
         initDate();
-
-        View view = inflater.inflate(R.layout.fragment_headline_list, container, false);//关联布局文件
-
-        lv_news=(ListView)view.findViewById(R.id.lv_news);
-
         mHeadInflater = LayoutInflater.from(getActivity());
+      //  pfl_main_refresh=(PtrClassicFrameLayout)view.findViewById(R.id.pfl_main_refresh);
+        pfl_main_refresh.setLastUpdateTimeRelateObject(this);
+        pfl_main_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                // here check list view, not content.
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame,content, header);
+                //return false;
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                pfl_main_refresh.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        newListRequest.startConnection(weburl);
+                        //  mRequestHandler.sendMessage(Message.obtain());
+                        pfl_main_refresh.refreshComplete();
+                    }
+                }, 1500);
+
+            }
+        });
+
 
         View headView = mHeadInflater.inflate(R.layout.fragment_headline_list_header,null);
 
@@ -111,7 +148,7 @@ public class ImageListViewFragment extends Fragment {
                 x.image().bind(imageView,datlist.get(datlist.size()-1-position).getTop_image(), imageOptions);
                 tv_title.setText(datlist.get(datlist.size()-1-position).getTitle());
 
-               // imageView.setImageResource(mImagesSrc[position]);
+                // imageView.setImageResource(mImagesSrc[position]);
                 return view;
             }
 
@@ -120,45 +157,6 @@ public class ImageListViewFragment extends Fragment {
                 return 4;
             }
         });
-
-
-
-
-
-        pfl_main_refresh=(PtrClassicFrameLayout)view.findViewById(R.id.pfl_main_refresh);
-        pfl_main_refresh.setLastUpdateTimeRelateObject(this);
-        pfl_main_refresh.setPtrHandler(new PtrDefaultHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                // here check list view, not content.
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame,content, header);
-                //return false;
-            }
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                pfl_main_refresh.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-//                        newListRequest.startConnection(weburl);
-                        //  mRequestHandler.sendMessage(Message.obtain());
-                        pfl_main_refresh.refreshComplete();
-                    }
-                }, 1500);
-
-            }
-        });
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-
 
     }
 
@@ -239,6 +237,7 @@ public class ImageListViewFragment extends Fragment {
     }
 
     private void initDate(){
+        adapter=new MyAdapter();
         nlist=new ArrayList<WebNews>();
         datlist=new ArrayList<DataBean>();
 

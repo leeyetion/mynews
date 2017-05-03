@@ -37,6 +37,7 @@ public class NewListRequest {
 
 
     public void startConnection( String weburl) {
+        Log.i("mytag","NewListRequest---->startConnection--->"+weburl);
 
         /**
          * 自定义实体参数类请参考:
@@ -95,9 +96,9 @@ public class NewListRequest {
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
+                        Log.i("mytag","NewListRequest---->startConnection--->"+result);
                         // 获取返回的json数据
                         String json = result;
-                        Log.i("mytag","返回报文-------"+json);
                         SharedPreUtils.setString(mContext,url,result);
                         Gson gson = new Gson();
                         WebNews webNew=new WebNews();
@@ -108,9 +109,6 @@ public class NewListRequest {
 
                         int i=webNew.getData().size();
                         List<DataBean> datlist=webNew.getData();
-
-                        Log.i("mytag","新闻数量-------"+datlist.size());
-
                         mRequestHandler.sendMessage(mRequestHandler.obtainMessage(200, datlist));
                     }
 
@@ -139,7 +137,6 @@ public class NewListRequest {
                     @Override
                     public void onFinished() {
                         Log.i("mytag","网络请求完成");
-
                     }
                 });
 

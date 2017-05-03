@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -28,7 +29,9 @@ import java.util.List;
 
 import news.crc.com.mynews.R;
 
+import news.crc.com.mynews.guide.GuideActivity;
 import news.crc.com.mynews.home.fragment.head.ImageListViewFragment;
+import news.crc.com.mynews.home.fragment.head.ReFreshListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.util.DensityUtils;
 import news.crc.com.mynews.util.SharedPreUtils;
@@ -49,26 +52,33 @@ public class FragmentHeadline extends Fragment {
     @ViewInject(R.id.iv_tabs_more)
     private ImageView iv_tabs_more;
 
-    List<Fragment> f_list = null;
+
     List<RequestModel> rmlist = null;
 
-    String news_Category=null;
+    String news_Category = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //View view=inflater.inflate(R.layout.fragment_headline, container, false);
-      //  tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-       // vp_fragement = (ViewPager) view.findViewById(R.id.vp_fragement);
-
-        return x.view().inject(this,inflater,null);
+        Log.i("mytag", "FragmentHeadline----->onCreateView----------------------" + inflater);
+        return x.view().inject(this, inflater, null);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.i("mytag", "FragmentHeadline---->onViewCreated----------------------" + view);
+
+        List<Fragment> f_list = null;
         InitData();
 
+        f_list = new ArrayList<Fragment>();
+        for (int i = 0; i < rmlist.size(); i++) {
+            if (i == 5) {
+                f_list.add(ReFreshListViewFragment.newInstance(rmlist.get(i)));
+            } else {
+                f_list.add(ImageListViewFragment.newInstance(rmlist.get(i)));
+            }
+        }
         iv_tabs_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,36 +86,11 @@ public class FragmentHeadline extends Fragment {
             }
         });
 
-    }
 
-    private void InitData() {
-        Gson gson=new Gson();
-        news_Category=SharedPreUtils.getString(getActivity(),"news_Category",null);
-        if (news_Category==null) {
-            rmlist = new ArrayList<RequestModel>();
-            rmlist.add(new RequestModel("头条", 1, 15));
-            rmlist.add(new RequestModel("娱乐", 2, 15));
-            rmlist.add(new RequestModel("军事", 3, 15));
-            rmlist.add(new RequestModel("汽车", 4, 15));
-            rmlist.add(new RequestModel("财经", 5, 15));
-            rmlist.add(new RequestModel("笑话", 6, 15));
-            rmlist.add(new RequestModel("体育", 7, 15));
-            rmlist.add(new RequestModel("科技", 8, 15));
-            String news_Category=gson.toJson(rmlist);
-            SharedPreUtils.setString(getActivity(),"news_Category",news_Category);
-        }else {
-            Log.d("mytag", "InitData: "+news_Category);
-            rmlist=gson.fromJson(news_Category,new TypeToken<List<RequestModel>>(){}.getType());
-        }
-
-        f_list = new ArrayList<Fragment>();
-        for (int i = 0; i < rmlist.size(); i++) {
-            f_list.add(ImageListViewFragment.newInstance(rmlist.get(i)));
-        }
-        //给ViewPager设置适配器
-        vp_fragement.setAdapter(new MyFragmentPagerAdapter(getFragmentManager(), f_list));
-        vp_fragement.setCurrentItem(0);//设置当前显示标签页为第一页
-
+        //给ViewPager设置适配器,注fragment里面嵌套fragment此处要用getChildFragmentManager获得管理，否则会导致数据丢失
+        vp_fragement.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(), f_list));
+        vp_fragement.setCurrentItem(0);
+        // vp_fragement.setCurrentItem(0);//设置当前显示标签页为第一页
 
         //tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         // 字体大小
@@ -113,9 +98,9 @@ public class FragmentHeadline extends Fragment {
         // 未选中状态下的字体颜色
         tabs.setTextColor(0x77000000);
         // 点击时候的背景颜色
-        // tabStrip.setTabBackground(R.color.transparent);
+        //tabs.setTabBackground(R.color.abc_background_cache_hint_selector_material_dark);
         // 选中状态下的字体颜色
-        //tabStrip.setSelectedTabTextColor(R.color.colorAccent);
+        //tabs.setSelectedTabTextColor(R.color.colorAccent);
 
         // 滚动线的高度
         tabs.setIndicatorHeight(DensityUtils.dpi2px(getActivity(), (int) 5.0f));
@@ -127,11 +112,59 @@ public class FragmentHeadline extends Fragment {
         // 标签分割线颜色
         tabs.setDividerColor(Color.TRANSPARENT);
         // 标签分割线边距
-        tabs.setDividerPadding(DensityUtils.dpi2px(getActivity(),9));
+        tabs.setDividerPadding(DensityUtils.dpi2px(getActivity(), 9));
         tabs.setShouldExpand(true);
         // 绑定适配器
         // 是否可以滚动
         tabs.setViewPager(vp_fragement);
+
+
+        //设置监听器，监听viewpager页面切换
+        vp_fragement.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //切换过程执行的方法
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.i("mytag", "FragmentHeadline-->onPageScrolled" + "---------------");
+
+            }
+
+            //切换成功执行的方法
+            @Override
+            public void onPageSelected(int position) {
+                Log.i("mytag", "FragmentHeadline-->onPageScrolled" + "---------------position--" + position);
+
+            }
+
+            //状态切换执行方法
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Log.i("mytag", "FragmentHeadline-->onPageScrollStateChanged" + "---------------state--" + state);
+
+            }
+        });
+
+    }
+
+    private void InitData() {
+        Gson gson = new Gson();
+        news_Category = SharedPreUtils.getString(getActivity(), "news_Category", null);
+        if (news_Category == null) {
+            rmlist = new ArrayList<RequestModel>();
+            rmlist.add(new RequestModel("头条", 1, 15));
+            rmlist.add(new RequestModel("娱乐", 2, 15));
+            rmlist.add(new RequestModel("军事", 3, 15));
+            rmlist.add(new RequestModel("汽车", 4, 15));
+            rmlist.add(new RequestModel("财经", 5, 15));
+            rmlist.add(new RequestModel("笑话", 6, 15));
+            rmlist.add(new RequestModel("体育", 7, 15));
+            rmlist.add(new RequestModel("科技", 8, 15));
+            String news_Category = gson.toJson(rmlist);
+            SharedPreUtils.setString(getActivity(), "news_Category", news_Category);
+        } else {
+            rmlist = gson.fromJson(news_Category, new TypeToken<List<RequestModel>>() {
+            }.getType());
+        }
+
     }
 
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -140,14 +173,12 @@ public class FragmentHeadline extends Fragment {
         public MyFragmentPagerAdapter(FragmentManager fm, List<Fragment> f_list) {
             super(fm);
             this.f_list = f_list;
-
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             return rmlist.get(position).getTableName();
         }
-
 
         @Override
         public int getCount() {
@@ -159,10 +190,5 @@ public class FragmentHeadline extends Fragment {
             return f_list.get(arg0);
         }
     }
-
-    private void initviewPage(){
-
-    }
-
 
 }
