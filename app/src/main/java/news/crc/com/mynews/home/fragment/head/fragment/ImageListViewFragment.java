@@ -1,6 +1,7 @@
-package news.crc.com.mynews.home.fragment.head;
+package news.crc.com.mynews.home.fragment.head.fragment;
 
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,6 +32,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import news.crc.com.mynews.R;
 import news.crc.com.mynews.config.WebConfig;
+import news.crc.com.mynews.home.activity.NewsDetailActivity;
 import news.crc.com.mynews.home.http.NewListRequest;
 import news.crc.com.mynews.home.model.DataBean;
 import news.crc.com.mynews.home.model.RequestModel;
@@ -155,6 +158,19 @@ public class ImageListViewFragment extends Fragment {
             @Override
             public int getCount() {
                 return 4;
+            }
+        });
+
+        lv_news.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DataBean mDataBean=(DataBean)datlist.get(position);
+                Intent mIntent= new Intent(getActivity(), NewsDetailActivity.class);
+                Bundle mBudle = new Bundle();
+                mBudle.putSerializable("mDataBean",mDataBean);
+                mIntent.putExtras(mBudle);
+                startActivity(mIntent);
             }
         });
 

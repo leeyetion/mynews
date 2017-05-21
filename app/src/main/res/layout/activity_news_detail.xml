@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_home"
+    android:id="@+id/activity_news_detail"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="news.crc.com.mynews.home.activity.HomeActivity">
+    tools:context="news.crc.com.mynews.home.activity.NewsDetailActivity">
 
-    <WebView
-        android:id="@+id/wv_comtent"
+
+    <com.github.lzyzsd.jsbridge.BridgeWebView
+        android:id="@+id/wv_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="match_parent">
+
+    </com.github.lzyzsd.jsbridge.BridgeWebView>
+
 
 </LinearLayout>

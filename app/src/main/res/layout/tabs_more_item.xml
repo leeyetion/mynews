@@ -13,7 +13,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/item_move"
+        android:src="@drawable/view_item_move"
         android:visibility="visible" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_height="60dp"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textColor="#2b2b2b"
+        android:textColor="@color/black"
         android:textSize="18dp" />
 
     <TextView

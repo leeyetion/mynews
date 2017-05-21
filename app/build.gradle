@@ -40,6 +40,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 
     compile 'com.fang:dashview:v1.0.0'
+    compile 'com.github.lzyzsd:jsbridge:1.0.4'
 
 
 }

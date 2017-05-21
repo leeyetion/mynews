@@ -1,6 +1,7 @@
 package news.crc.com.mynews.view.adapt;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import android.content.Context;
@@ -17,16 +18,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cc.ronch.myapplication.R;
+import news.crc.com.mynews.R;
+import news.crc.com.mynews.home.model.RequestModel;
+
 
 /***
  * 自定义可拖拽ListView适配器
  */
 public class DragListAdapter extends BaseAdapter {
-    public ArrayList<String> mgroupkey;
-    public ArrayList<String> friendList;
-    public ArrayList<String> moreList;
-    private ArrayList<String> mDataList;// 标题数组
+    public ArrayList<RequestModel> mgroupkey;
+    public ArrayList<RequestModel> friendList;
+    public ArrayList<RequestModel> moreList;
+    private ArrayList<RequestModel> mDataList;// 标题数组
     private Context mContext;
 
     /**
@@ -35,7 +38,7 @@ public class DragListAdapter extends BaseAdapter {
      * @param context  // 上下文对象
      * @param dataList // 数据集合
      */
-    public DragListAdapter(Context context, ArrayList<String> dataList, ArrayList<String> groupkey, ArrayList<String> friendList, ArrayList<String> moreList) {
+    public DragListAdapter(Context context, ArrayList<RequestModel> dataList, ArrayList<RequestModel> groupkey, ArrayList<RequestModel> friendList, ArrayList<RequestModel> moreList) {
         this.mContext = context;
         this.mDataList = dataList;
         this.mgroupkey = groupkey;
@@ -68,12 +71,12 @@ public class DragListAdapter extends BaseAdapter {
          * 具体原因不明，不过这样经过测试，目前没有发现错乱。虽说效率不高，但是做拖拽LisView足够了。
          */
 
-        if (mgroupkey.contains(String.valueOf(getItem(position)))) {
+        if (mgroupkey.contains(getItem(position))) {
             convertView = LayoutInflater.from(mContext).inflate(
-                    R.layout.drag_list_item_tag, null);
+                    R.layout.tabs_more_item_tag, null);
         } else {
             convertView = LayoutInflater.from(mContext).inflate(
-                    R.layout.drag_list_item, null);
+                    R.layout.tabs_more_item, null);
         }
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.itemLayout = (LinearLayout) convertView.findViewById(R.id.drag_item_layout);
@@ -83,7 +86,7 @@ public class DragListAdapter extends BaseAdapter {
         viewHolder.textRight = (TextView) convertView.findViewById(R.id.rightText);
         viewHolder.textRightTag = (TextView) convertView.findViewById(R.id.rightTextTag);
         initItemView(viewHolder, position, convertView);
-        viewHolder.titleTv.setText(mDataList.get(position));
+        viewHolder.titleTv.setText(mDataList.get(position).getTableName());
         // 判断是否发生了改变
         if (isChanged) {
 
@@ -138,19 +141,19 @@ public class DragListAdapter extends BaseAdapter {
     private void initItemView(final ViewHolder viewHolder, final int position, final View convertView) {
         if (convertView != null) {
             // 设置对应的监听
-            if (!mgroupkey.contains(String.valueOf(getItem(position)))) {
-                if (friendList.contains(String.valueOf(getItem(position)))) {
+            if (!mgroupkey.contains(getItem(position))) {
+                if (friendList.contains(getItem(position))) {
                     viewHolder.textRight.setText("删除");
                     viewHolder.itemLeft.setVisibility(View.VISIBLE);
                     viewHolder.delete.setOnClickListener(new OnClickListener() {// 删除
 
                         @Override
                         public void onClick(View v) {
-                            String data = getItem(position).toString();
+                            RequestModel data = (RequestModel)getItem(position);
                             removeItem(position);
                             System.out.println("------------------mDataList=" + mDataList.toString());
                             friendList.remove(position - 1);
-                            mDataList.add(friendList.size() + 2, data);
+                            mDataList.add(friendList.size()+2 , data);
                             moreList.add(0, data);
                         }
                     });
@@ -160,10 +163,10 @@ public class DragListAdapter extends BaseAdapter {
                     viewHolder.delete.setOnClickListener(new OnClickListener() {// 添加
                         @Override
                         public void onClick(View v) {
-                            String data = getItem(position).toString();
+                            RequestModel data = (RequestModel)getItem(position);
                             removeItem(position);
-                            moreList.remove(position - (friendList.size() + 2));
-                            mDataList.add(friendList.size() + 1, data);
+                            moreList.remove(position - (friendList.size()+2 ));
+                            mDataList.add(friendList.size()+1, data);
                             friendList.add(data);
                         }
                     });
@@ -190,18 +193,25 @@ public class DragListAdapter extends BaseAdapter {
      * @param endPosition   松开时候的position
      */
     public void exchange(int startPosition, int endPosition) {
-        Object startObject = getItem(startPosition);
+        RequestModel startObject = (RequestModel)getItem(startPosition);
 
         if (startPosition < endPosition) {
-            mDataList.add(endPosition + 1, (String) startObject);
+            mDataList.add(endPosition + 1,  startObject);
             mDataList.remove(startPosition);
 
         } else {
-            mDataList.add(endPosition, (String) startObject);
+            mDataList.add(endPosition, startObject);
             mDataList.remove(startPosition + 1);
         }
 
         isChanged = true;
+    }
+
+    public List<RequestModel> getfriendList(){
+        return friendList;
+    }
+    public List<RequestModel> getMoreList(){
+        return moreList;
     }
 
     /**
@@ -211,17 +221,17 @@ public class DragListAdapter extends BaseAdapter {
      * @param endPosition   // 当前停留的位置
      */
     public void exchangeCopy(int startPosition, int endPosition) {
-        Object startObject = getCopyItem(startPosition);
+        RequestModel startObject = (RequestModel)getCopyItem(startPosition);
         if (startPosition < endPosition) {// 向下移动
-            mCopyList.add(endPosition + 1, (String) startObject);
+            mCopyList.add(endPosition + 1, (RequestModel) startObject);
             mCopyList.remove(startPosition);
-            friendCopyList.add(endPosition, (String) startObject);
+            friendCopyList.add(endPosition, (RequestModel) startObject);
             friendCopyList.remove(startPosition - 1);
 
         } else {// 向上拖动或者不动
-            mCopyList.add(endPosition, (String) startObject);
+            mCopyList.add(endPosition, (RequestModel) startObject);
             mCopyList.remove(startPosition + 1);
-            friendCopyList.add(endPosition - 1, (String) startObject);
+            friendCopyList.add(endPosition - 1, (RequestModel) startObject);
             friendCopyList.remove(startPosition);
         }
 
@@ -288,30 +298,30 @@ public class DragListAdapter extends BaseAdapter {
      */
     public void addDragItem(int start, Object obj) {
         mDataList.remove(start);// 删除该项
-        mDataList.add(start, (String) obj);// 添加删除项
+        mDataList.add(start, (RequestModel) obj);// 添加删除项
     }
 
-    private ArrayList<String> mCopyList = new ArrayList<>();
-    private ArrayList<String> friendCopyList = new ArrayList<>();
+    private ArrayList<RequestModel> mCopyList = new ArrayList<RequestModel>();
+    private ArrayList<RequestModel> friendCopyList = new ArrayList<RequestModel>();
 
     public void copyList() {
         mCopyList.clear();
-        for (String str : mDataList) {
+        for (RequestModel str : mDataList) {
             mCopyList.add(str);
         }
         friendCopyList.clear();
-        for (String str : friendList) {
+        for (RequestModel str : friendList) {
             friendCopyList.add(str);
         }
     }
 
     public void pastList() {
         mDataList.clear();
-        for (String str : mCopyList) {
+        for (RequestModel str : mCopyList) {
             mDataList.add(str);
         }
         friendList.clear();
-        for (String str : friendCopyList) {
+        for (RequestModel str : friendCopyList) {
             friendList.add(str);
         }
     }
@@ -350,7 +360,7 @@ public class DragListAdapter extends BaseAdapter {
 
     /**
      * 设置当前拖动位置
-     *
+     *F
      * @param position
      */
     public void setCurrentDragPosition(int position) {

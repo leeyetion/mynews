@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import news.crc.com.mynews.R;
-import news.crc.com.mynews.home.fragment.head.ImageListViewFragment;
+import news.crc.com.mynews.home.fragment.head.fragment.ImageListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.util.DensityUtils;
 

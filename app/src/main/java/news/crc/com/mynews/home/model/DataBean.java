@@ -1,10 +1,12 @@
 package news.crc.com.mynews.home.model;
 
+import java.io.Serializable;
+
 /**
  * Created by crcement on 2017/3/26.
  */
 
-public class DataBean {
+public class DataBean implements Serializable {
     private String news_id;
     private String title;
     private String top_image;

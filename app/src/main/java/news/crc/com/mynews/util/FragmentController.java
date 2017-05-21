@@ -8,16 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import news.crc.com.mynews.home.fragment.head.ImageListViewFragment;
-import news.crc.com.mynews.home.fragment.head.ReFreshListViewFragment;
+import news.crc.com.mynews.home.fragment.head.fragment.ImageListViewFragment;
+import news.crc.com.mynews.home.fragment.head.fragment.ReFreshListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
-import news.crc.com.mynews.home.model.WebNews;
 
 /**
  * Created by LIYESHENG on 2017-5-2.

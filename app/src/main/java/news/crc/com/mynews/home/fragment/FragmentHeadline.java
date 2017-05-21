@@ -1,5 +1,6 @@
 package news.crc.com.mynews.home.fragment;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -29,9 +29,9 @@ import java.util.List;
 
 import news.crc.com.mynews.R;
 
-import news.crc.com.mynews.guide.GuideActivity;
-import news.crc.com.mynews.home.fragment.head.ImageListViewFragment;
-import news.crc.com.mynews.home.fragment.head.ReFreshListViewFragment;
+import news.crc.com.mynews.home.fragment.head.activity.MoreTabsActivity;
+import news.crc.com.mynews.home.fragment.head.fragment.ImageListViewFragment;
+import news.crc.com.mynews.home.fragment.head.fragment.ReFreshListViewFragment;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.util.DensityUtils;
 import news.crc.com.mynews.util.SharedPreUtils;
@@ -51,7 +51,6 @@ public class FragmentHeadline extends Fragment {
 
     @ViewInject(R.id.iv_tabs_more)
     private ImageView iv_tabs_more;
-
 
     List<RequestModel> rmlist = null;
 
@@ -73,7 +72,7 @@ public class FragmentHeadline extends Fragment {
 
         f_list = new ArrayList<Fragment>();
         for (int i = 0; i < rmlist.size(); i++) {
-            if (i == 5) {
+            if (rmlist.get(i).getTableNum() == 6) {
                 f_list.add(ReFreshListViewFragment.newInstance(rmlist.get(i)));
             } else {
                 f_list.add(ImageListViewFragment.newInstance(rmlist.get(i)));
@@ -82,6 +81,9 @@ public class FragmentHeadline extends Fragment {
         iv_tabs_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent =new Intent(getActivity(), MoreTabsActivity.class);
+                startActivity(intent);
                 Toast.makeText(getActivity(), "iv_tabs_more", Toast.LENGTH_SHORT).show();
             }
         });
@@ -117,6 +119,8 @@ public class FragmentHeadline extends Fragment {
         // 绑定适配器
         // 是否可以滚动
         tabs.setViewPager(vp_fragement);
+
+        tabs.setShouldExpand(false);
 
 
         //设置监听器，监听viewpager页面切换
@@ -190,5 +194,7 @@ public class FragmentHeadline extends Fragment {
             return f_list.get(arg0);
         }
     }
+
+
 
 }

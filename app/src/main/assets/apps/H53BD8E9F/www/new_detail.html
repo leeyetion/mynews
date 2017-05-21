@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/mui.js"></script>
+	</head>
+	<style >
+		img{
+			width: 80%;
+			margin-left: 5%;
+			margin-top: 60px;
+			
+		}
+		
+	</style>
+	<script type="text/javascript">
+		function GetQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r != null) return unescape(r[2]);
+			return null;
+		}
+
+		mui.plusReady(function() {
+			var new_id=GetQueryString("new_id");
+			var tableNum=GetQueryString("tableNum");
+			var url='http://api.dagoogle.cn/news/single-news?tableNum='+tableNum+'&news_id='+new_id;
+			//http://api.dagoogle.cn/news/single-news?tableNum='+tableNum+'news_id='+new_id
+			
+			mui.ajax(url, {
+				data: { // 传送给服务器数据
+					
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒
+				//async: false,
+				/*
+				headers: {
+					'Content-Type':'application/json'
+				},*/
+				// 如果请求成功,则data中就是返回的结果
+				success: function(data) {
+					console.log("data:" + JSON.stringify(data));
+					if(data.status == 200) {
+						html = data.data;
+						document.querySelector('#title').innerHTML=html.title
+						document.querySelector('#content').innerHTML=html.content
+						var newslist=JSON.stringify(html)
+
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+
+					
+
+					console.log(type + "," + errorThrown);
+					
+				}
+			});
+
+		});
+	</script>
+
+	<body>
+		<div id="title" style="width: 100%; text-align: center;padding: 10px; font-size: 60px;font-weight:bold;line-height:70px">
+			
+		</div>
+		<div id="content" style="width: 100%;padding: 10px; font-size: 50px;text-align:justify;line-height:60px;text-indent:4em">
+			
+		</div>
+	</body>
+
+</html>

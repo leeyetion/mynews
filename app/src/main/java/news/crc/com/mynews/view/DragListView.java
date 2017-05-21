@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import news.crc.com.mynews.R;
 import news.crc.com.mynews.view.adapt.DragListAdapter;
 import news.crc.com.mynews.view.model.DragItemInfo;
 
@@ -202,7 +203,7 @@ public class DragListView extends ListView {
             mDragOffset = (int) (ev.getRawY() - y);
 
             // 获取可拖拽的图标
-           // draggerIcon = dragger.findViewById(R.id.drag_item_image);
+            draggerIcon = dragger.findViewById(R.id.drag_item_image);
             if (draggerIcon != null && x < draggerIcon.getRight() + 20 && mLastPosition < adapter.friendList.size() + 1) {
                 dragView();
             }

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			// 页面加载完毕在绑定事件
+			mui.ready(function(){
+				// 批量给a标签绑定tap事件,就是单击事件
+				mui('.mui-table-view').on('tap','a',function(){
+					// console.info(this.getAttribute('id'));
+					// openWindow打开指定的页面
+					var url = this.getAttribute('id');
+					mui.openWindow(url,'',{
+						extras:{ // 跳转并传入参数
+					      name:'mui'
+					    },
+					     show:{
+					      autoShow:true,
+					      aniShow:'slide-in-right'
+					     }
+					});
+				});
+				
+				
+			}); 
+			
+		</script>
+		<!--
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		 -->
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">页面跳转演示</h1>
+		</header>
+		<div class="mui-content">
+			<!-- 非图文,演示页面之间跳转 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<!-- 页面跳转：抛弃href跳转 -->
+					<a class="mui-navigate-right" id="js01.html">
+						JS案例演示 (js01.html,js02.html,js03.html)
+					</a>
+					<span class="mui-badge mui-badge-primary">12</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="grid.html">
+						网格布局
+					</a>
+					<span class="mui-badge mui-badge-warning">3</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="switch.html">
+						switch
+						<span class="mui-badge mui-badge-success mui-badge-inverted">31</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="form.html">
+						登录表单
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="headline.html">
+						央视新闻
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="divice.html">
+						调用底层设备
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>

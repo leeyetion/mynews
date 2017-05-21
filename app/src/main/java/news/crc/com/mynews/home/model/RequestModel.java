@@ -55,4 +55,10 @@ public class RequestModel {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return (this.getTableName()).equals(((RequestModel)obj).getTableName());
+    }
 }

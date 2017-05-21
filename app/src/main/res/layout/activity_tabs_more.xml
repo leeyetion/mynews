@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:background="#FFF"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+
+        android:layout_height="40dp">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/select_back"
+            android:padding="8dp"
+            android:background="#FFFFFF"
+            android:onClick="getBack"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/headline_tile"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="getList"
+            android:src="@drawable/select_save"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            android:text="保存"/>
+    </LinearLayout>
+
+    <news.crc.com.mynews.view.DragListView
+        android:id="@+id/other_drag_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#e5e5e5"
+        android:dividerHeight="1px"
+        android:fadingEdge="none"
+        android:listSelector="#00000000" />
+</LinearLayout>

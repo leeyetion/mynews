@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				subpages: [{
+					url: 'list_item.html', //下拉刷新内容页面地址
+					id: 'xyz', //内容页面标志
+					styles: {
+						top: '44px' //内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px；
+					}
+				}]
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">支持网络的下拉刷新</h1>
+		</header>
+
+	</body>
+
+</html>

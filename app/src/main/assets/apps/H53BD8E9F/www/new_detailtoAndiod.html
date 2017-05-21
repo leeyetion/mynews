@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script type="text/javascript">
+		 function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+		 
+		connectWebViewJavascriptBridge(function(bridge) {
+            bridge.init(function(message, responseCallback) {
+                console.log('JS got a message', message);
+                var data = {
+                    'Javascript Responds': '测试中文!'
+                };
+                console.log('JS responding with', data);
+                responseCallback(data);
+            });
+
+            bridge.registerHandler("functionInJ", function(data, responseCallback) {
+            	console.log('andriod传递参数为：', data);
+                
+                var new_detail = JSON.parse(data)
+                alert(data)
+                document.getElementById("title").innerHTML = new_detail.title;
+                document.getElementById("content").innerHTML = new_detail.content;
+                var responseData = "这是我返回的数据!";
+                responseCallback(responseData);
+            });
+        })
+	</script>
+	<body>
+		<div id="title" style="width: 100%; text-align: center;padding: 10px; font-size: 20px;font-weight:bold;">
+			我是标题
+		</div>
+		<div id="content" style="width: 100%;padding: 10px; font-size: 15px;">
+			我是内容
+		</div>
+	</body>
+</html>

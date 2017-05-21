@@ -1,4 +1,4 @@
-package news.crc.com.mynews.home.fragment.head;
+package news.crc.com.mynews.home.fragment.head.fragment;
 
 
 import android.os.Bundle;
@@ -9,29 +9,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import org.xutils.common.util.DensityUtil;
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import news.crc.com.mynews.R;
 import news.crc.com.mynews.config.WebConfig;
 import news.crc.com.mynews.home.http.NewListRequest;
 import news.crc.com.mynews.home.model.DataBean;
 import news.crc.com.mynews.home.model.RequestModel;
 import news.crc.com.mynews.home.model.WebNews;
-import news.crc.com.mynews.view.CarouselView;
 import news.crc.com.mynews.view.ReFreshListView;
 
 
@@ -134,7 +124,7 @@ public class ReFreshListViewFragment extends Fragment {
                 viewHolder = (ReFreshListViewFragment.ViewHolder) view.getTag();
             }
             DataBean news=(DataBean)getItem(i);
-            viewHolder.tv_content.setText(news.getTitle());
+            viewHolder.tv_content.setText(news.getDigest());
 
 
             return view;

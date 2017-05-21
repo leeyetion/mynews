@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/mui.min.js"></script>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+		<script type="text/javascript">
+			function myajax(url, tableNum, pagesize) {
+				var html = ''
+
+				mui.ajax(url, {
+					data: { // 传送给服务器数据
+						tableNum: tableNum,
+						pagesize: pagesize
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒
+					async: false,
+					/*
+					headers: {
+						'Content-Type':'application/json'
+					},*/
+					// 如果请求成功,则data中就是返回的结果
+					success: function(data) {
+						console.log("data:" + data);
+						if(data.status == 200) {
+							html = html + '<div class="mui-scroll">';
+
+							html = html + '<ul class="mui-table-view">';
+
+							mui.each(data.data, function(index, item) {
+
+								html = html + '<li class="mui-table-view-cell">';
+								html = html + '   <a href="javascript:;" id="new_detail.html?tableNum='+tableNum +'&new_id=' + item.news_id + '">';
+								html = html + '       <img class="mui-media-object mui-pull-right" src="' + item.top_image + '"> '
+								html = html + '       <div class="mui-media-body"> ' + item.title + ' '
+								html = html + '             <p class="mui-ellipsis">' + item.source + '</p>'
+								html = html + '       </div>'
+								html = html + '   </a>'
+								html = html + '</li>';
+
+							});
+							html = html + '</ul>';
+
+							html = html + '</div>';
+							//var newslist=JSON.stringify(data.data)
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+
+						console.log(type + "," + errorThrown);
+						calback(errorThrown);
+					}
+				});
+				return html
+			}
+
+			function myajaxObj(url, tableNum, pagesize, page) {
+				var html
+				mui.ajax(url, {
+					data: { // 传送给服务器数据
+						tableNum: tableNum,
+						pagesize: pagesize,
+						page: page
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒
+					async: false,
+					/*
+					headers: {
+						'Content-Type':'application/json'
+					},*/
+					// 如果请求成功,则data中就是返回的结果
+					success: function(data) {
+						console.log("data:" + data);
+						if(data.status == 200) {
+							html = data.data;
+							//var newslist=JSON.stringify(data.data)
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+
+						html = errorThrown;
+
+						console.log(type + "," + errorThrown);
+						calback(errorThrown);
+					}
+				});
+				return html
+			}
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">央视新闻</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							头条
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							娱乐
+						</a>
+						<a class="mui-control-item" href="#item3mobile">
+							军事
+						</a>
+						<a class="mui-control-item" href="#item4mobile">
+							汽车
+						</a>
+						<a class="mui-control-item" href="#item5mobile">
+							财经
+						</a>
+						<a class="mui-control-item" href="#item6mobile">
+							体育
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+
+						</div>
+					</div>
+
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll4" class="mui-scroll-wrapper">
+
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll5" class="mui-scroll-wrapper">
+
+						</div>
+					</div>
+					<div id="item6mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll6" class="mui-scroll-wrapper">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+
+		<script type="text/javascript">
+			document.querySelector("#scroll1").innerHTML = myajax("http://api.dagoogle.cn/news/get-news", "1", "20");
+			document.querySelector("#scroll2").innerHTML = myajax("http://api.dagoogle.cn/news/get-news", "2", "20");
+			document.querySelector("#scroll3").innerHTML = myajax("http://api.dagoogle.cn/news/get-news", "3", "20");
+			document.querySelector("#scroll4").innerHTML = myajax("http://api.dagoogle.cn/news/get-news", "4", "20");
+			document.querySelector("#scroll5").innerHTML = myajax("http://api.dagoogle.cn/news/get-news", "5", "20");
+			document.querySelector("#scroll6").innerHTML = myajax("http://api.dagoogle.cn/news/get-news", "7", "20");
+		</script>
+		<script>
+			mui.init();
+			(function($) {
+				var i = 1;
+				//阻尼系数
+				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration: deceleration
+				});
+				$.ready(function() {
+					mui('.mui-table-view').on('tap', 'a', function() {
+						// console.info(this.getAttribute('id'));
+						// openWindow打开指定的页面
+						var url = this.getAttribute('id');
+						mui.openWindow(url, '', {
+							extras: { // 跳转并传入参数
+								name: 'mui'
+							},
+							show: {
+								autoShow: true,
+								aniShow: 'slide-in-right'
+							}
+						});
+					});
+
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										//document.querySelector("#scroll"+(index+1)).innerHTML = myajax("http://api.dagoogle.cn/news/get-news", index+1, "20");
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+										//										alert(index);
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+
+										//document.querySelector("#scroll"+(index+1)).innerHTML = myajax("http://api.dagoogle.cn/news/get-news", index+1, (i*20));
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.appendChild(createFragment(ul, index, i));
+										i = i + 1;
+										//										alert(index);
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+						});
+					});
+					var createFragment = function(ul, index, i) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment();
+						var li;
+						
+						var count=index + 1
+						if(index==5){count=index + 2}
+
+						var dataObj = myajaxObj("http://api.dagoogle.cn/news/get-news", count, 20, i)
+
+						mui.each(dataObj, function(index, item) {
+
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell';
+							var html = ''
+							//<a href="javascript:;" id="new_detail.html?tableNum='+tableNum +'&new_id=' + item.news_id + '">
+							html = html + '   <a href="javascript:;" id="new_detail.html?tableNum='+count +'&new_id=' + item.news_id + '">';
+							html = html + '       <img class="mui-media-object mui-pull-right" src="' + item.top_image + '"> '
+							html = html + '       <div class="mui-media-body"> ' + item.title + ' '
+							html = html + '             <p class="mui-ellipsis">' + item.source + '</p>'
+							html = html + '       </div>'
+							html = html + '   </a>'
+
+							li.innerHTML = html
+							fragment.appendChild(li);
+						});
+						return fragment;
+					};
+				});
+			})(mui);
+		</script>
+
+	</body>
+
+</html>
