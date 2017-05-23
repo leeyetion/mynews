@@ -14,13 +14,13 @@
         <ImageButton
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:src="@drawable/select_back"
+            android:src="@drawable/select_home_headline_more_back"
             android:padding="8dp"
             android:background="#FFFFFF"
             android:onClick="getBack"
             android:layout_height="wrap_content" />
         <ImageView
-            android:src="@drawable/headline_tile"
+            android:src="@drawable/home_headline_tile"
             android:layout_width="0dp"
             android:layout_weight="8"
             android:layout_height="wrap_content" />
@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:onClick="getList"
-            android:src="@drawable/select_save"
+            android:src="@drawable/select_home_headline_more_save"
             android:background="#FFFFFF"
             android:padding="5dp"
             android:text="保存"/>

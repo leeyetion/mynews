@@ -39,5 +39,26 @@
         <item name="android:drawablePadding">10dp</item>
 
     </style>
+    <style name="account_tv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_weight">11</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="account_iv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="account_ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
 
 </resources>

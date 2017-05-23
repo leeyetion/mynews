@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
@@ -36,17 +37,6 @@ public class HomeActivity extends FragmentActivity {
   //  FragmentTransaction transaction = null;
     FragmentManager fm = null;
 
-    private boolean isAppExit = false;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                isAppExit = false;
-                return;
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +46,8 @@ public class HomeActivity extends FragmentActivity {
         fragmentHeadline = new FragmentHeadline();
         transaction.replace(R.id.fm_content, fragmentHeadline);
         transaction.commit();
+        RadioGroup radioGroup=(RadioGroup)findViewById(R.id.rg_bottom);
+        radioGroup.check(R.id.rb_headline);
 
     }
 
@@ -107,6 +99,17 @@ public class HomeActivity extends FragmentActivity {
         Toast.makeText(this, "btnAccount被单击", Toast.LENGTH_SHORT).show();
     }
 
+
+    private boolean isAppExit = false;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                isAppExit = false;
+                return;
+            }
+        }
+    };
 
     @Override //捕获KEYCODE_BACK事件
     public boolean onKeyDown(int keyCode, KeyEvent event) {

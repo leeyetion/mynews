@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/tv_title"
-        android:src="@drawable/headline_tile"
+        android:src="@drawable/home_headline_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="center"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:padding="3dp"
-            android:src="@drawable/more"
+            android:src="@drawable/home_headline_more"
             android:onClick="editMore"
             android:background="@color/white"
             android:layout_alignParentRight="true"

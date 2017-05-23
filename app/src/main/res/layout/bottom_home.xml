@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <RadioGroup
+        android:id="@+id/rg_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -12,31 +13,32 @@
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/selector_all"
+            android:id="@+id/rb_headline"
+            android:drawableTop="@drawable/selector_home_headline"
             android:onClick="btnAll"
             android:text="首页" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/select_calendar"
+            android:drawableTop="@drawable/select_home_calendar"
             android:onClick="btnCalendar"
             android:text="时间链" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/selector_electronics"
+            android:drawableTop="@drawable/selector_home_electronics"
             android:onClick="btnElectronics"
             android:text="电视+" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/select_jewelry"
+            android:drawableTop="@drawable/select_home_jewelry"
             android:onClick="btnJewelry"
             android:text="发现" />
 
         <RadioButton
             style="@style/btnStyle"
-            android:drawableTop="@drawable/select_account"
+            android:drawableTop="@drawable/select_home_account"
             android:onClick="btnAccount"
             android:text="我" />
     </RadioGroup>

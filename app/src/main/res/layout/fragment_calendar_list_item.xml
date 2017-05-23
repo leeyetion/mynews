@@ -6,8 +6,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:background="#fafafa"
-    tools:context="news.crc.com.mynews.home.activity.HomeActivity">
+    android:background="#fafafa">
 
     <RelativeLayout
         android:layout_weight="1"

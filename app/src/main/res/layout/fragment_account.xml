@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/account_background" />
+
+                    <ImageView
+                        android:id="@+id/iv_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/account_login" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
+                        android:autoLink="all"
+                        android:text="登录"
+                        android:textColor="#7FFF00" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_history"
+                    style="@style/account_ll"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border_gray_top_2">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#32CD32"
+                        android:src="@drawable/account_histroy" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="历史纪录" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_my_collect"
+                    style="@style/account_ll"
+                    android:background="@drawable/border_gray_bottom_and_top">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#FF7F50"
+                        android:src="@drawable/account_my_collect" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="我的收藏" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/account_ll"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border_gray_top_2">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#00FFFF"
+                        android:src="@drawable/account_important_push" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:layout_weight="9"
+                        android:text="要闻推送" />
+
+                    <Switch
+                        android:id="@+id/sw_important_push"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/account_ll"
+                    android:background="@drawable/border_gray_bottom_and_top">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#228B22"
+                        android:src="@drawable/account_use_internet" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:layout_weight="9"
+                        android:text="使用移动网络不再提醒" />
+
+                    <Switch
+                        android:id="@+id/sw_use_internet"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_delete_cache"
+                    style="@style/account_ll"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border_gray_bottom_and_top">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#FF0000"
+                        android:src="@drawable/account_delete_cache" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:layout_weight="5"
+                        android:text="清除缓存" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:layout_weight="6"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="当前缓存大小为19.5K"
+                        android:textColor="#1E90FF"
+                        android:textSize="15dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/account_ll"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border_gray_top_2">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#0000FF"
+                        android:src="@drawable/account_important_push" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="应用推荐" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_option_feedback"
+                    style="@style/account_ll"
+                    android:background="@drawable/border_gray_top_2">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#FFD700"
+                        android:src="@drawable/account_option_feedback" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="意见反馈" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/attention_cctv_news"
+                    style="@style/account_ll"
+                    android:background="@drawable/border_gray_top_2">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#FF1493"
+                        android:src="@drawable/account_attention_cctv" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="关注央视新闻" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_check_version"
+                    style="@style/account_ll"
+                    android:background="@drawable/border_gray_top_2">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#0000CD"
+                        android:src="@drawable/account_check_visions" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="检测新版本" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_abort"
+                    style="@style/account_ll"
+                    android:background="@drawable/border_gray_bottom_and_top">
+
+                    <ImageView
+                        style="@style/account_iv"
+                        android:background="#1E90FF"
+                        android:src="@drawable/account_abort" />
+
+                    <TextView
+                        style="@style/account_tv"
+                        android:text="关于" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
